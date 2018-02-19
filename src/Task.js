@@ -1,4 +1,5 @@
 import React from 'react';
+import './Task.css'
 
 const Task = (props) => {
     return (
@@ -11,6 +12,5 @@ const Task = (props) => {
         </div>
     );
 }
-
 
 export default Task;

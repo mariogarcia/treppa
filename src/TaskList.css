@@ -1,8 +1,6 @@
 
 .task-list {
-    width: 20%;
-}
-
-.task-list-title {
-    color: '#DDDDDD';
+    padding: 10px;
+    display:inline-block;
+    vertical-align: top;
 }
