@@ -4,7 +4,7 @@ export function uniqueId() {
     return __id++;
 }
 
-export function createTask({title, description}) {
+export const createTask = ({title, description}) => {
     return {
         type: 'CREATE_TASK',
         payload: {
@@ -12,6 +12,16 @@ export function createTask({title, description}) {
             title,
             description,
             status: "Unstarted"
+        }
+    }
+}
+
+export const changeTaskStatus = (id, params = {}) => {
+    return {
+        type: 'EDIT_TASK',
+        payload: {
+            id,
+            params
         }
     }
 }
