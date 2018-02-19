@@ -34,7 +34,10 @@ export default function tasks(state = {tasks: mockTasks}, action) {
                 return task;
             }
         });
-        return { tasks: tasks }
+
+        return {
+            tasks: tasks
+        }
 
       default:
         return state

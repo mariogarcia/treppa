@@ -7,7 +7,7 @@ const TaskStatus = ({task, onStatusChange}) => {
         onStatusChange(task.id, e.target.value);
     }
     return (
-        <select defaultValue={task.status} onChange={changeStatus}>
+        <select className="task-status" defaultValue={task.status} onChange={changeStatus}>
             {TASK_STATUSES.map(s => {
                 return (<option key={s} value={s}>{s}</option>)
             })}
@@ -19,7 +19,7 @@ const Task = (props) => {
     return (
         <div className="task">
             <div className="task-header">
-                <div>{props.task.title}</div>
+                <div className="task-header-title">{props.task.title}</div>
                 <span>
                     <TaskStatus
                         task={props.task}

@@ -1,3 +1,22 @@
 .task {
     color: '#666666';
+    padding: 10px;
+}
+
+.task-header {
+    padding: 5px;
+}
+
+.task-header-title {
+    display: inline-block;
+}
+
+.task-header span {
+    display: inline-block;
+    float: right;
+}
+
+select.task-status {
+    border: 1px;
+    padding: 5px;
 }
