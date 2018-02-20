@@ -16,3 +16,7 @@ export const fetchTasks = () => {
 export const createTask = (params) => {
     return client.post('/task', params)
 }
+
+export const updateTask = (params) => {
+    return client.put('/task', params)
+}

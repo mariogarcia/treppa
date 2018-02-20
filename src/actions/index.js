@@ -34,12 +34,19 @@ export function fetchTaskSucceeded(tasks) {
     }
 }
 
-export const changeTaskStatus = (id, params = {}) => {
+export const editTask = (id, params = {}) => {
+    return (dispatch) => {
+        api.updateTask({id,...params}).then(resp => {
+            dispatch(editTaskSucceeded(resp.data))
+        })
+    }
+}
+
+export const editTaskSucceeded = (tasks) => {
     return {
-        type: 'EDIT_TASK',
+        type: 'EDIT_TASKS_SUCCEEDED',
         payload: {
-            id,
-            params
+            tasks
         }
     }
 }

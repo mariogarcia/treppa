@@ -27,6 +27,11 @@ export default function tasks(state = {tasks: []}, action) {
             tasks: action.payload.tasks
         };
 
+      case 'EDIT_TASKS_SUCCEEDED':
+        return {
+            tasks: action.payload.tasks
+        };
+
       default:
         return state
     }
