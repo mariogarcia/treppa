@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import TaskPage from './TaskPage';
-import { createTask, changeTaskStatus } from './actions'
+import { createTask, changeTaskStatus, fetchTasks } from './actions'
 import './App.css';
 
 class App extends Component {
+
+    componentDidMount () {
+        this.props.dispatch(fetchTasks())
+    }
+
     onCreateTask = ({title, description}) => {
         this.props.dispatch(createTask({title, description}));
     }
