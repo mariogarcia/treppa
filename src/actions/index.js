@@ -1,23 +1,27 @@
 import * as api from '../api'
 
-export const createTask = ({title, description}) => {
+export const createTask = ({title, description, status = 'Unstarted'}) => {
+    return (dispatch) => {
+        api.createTask({title, description, status}).then(resp => {
+            dispatch(createTaskSucceeded(resp.data))
+        })
+    }
+}
+
+export const createTaskSucceeded = (task) => {
     return {
-        type: 'CREATE_TASK',
+        type: 'CREATE_TASK_SUCCEEDED',
         payload: {
-            title,
-            description,
-            status: "Unstarted"
+            task
         }
     }
 }
 
-export const changeTaskStatus = (id, params = {}) => {
-    return {
-        type: 'EDIT_TASK',
-        payload: {
-            id,
-            params
-        }
+export function fetchTasks() {
+    return (dispatch) => {
+        api.fetchTasks().then(resp => {
+            dispatch(fetchTaskSucceeded(resp.data))
+        })
     }
 }
 
@@ -30,10 +34,12 @@ export function fetchTaskSucceeded(tasks) {
     }
 }
 
-export function fetchTasks() {
-    return (dispatch) => {
-        api.fetchTasks().then(resp => {
-            dispatch(fetchTaskSucceeded(resp.data))
-        })
+export const changeTaskStatus = (id, params = {}) => {
+    return {
+        type: 'EDIT_TASK',
+        payload: {
+            id,
+            params
+        }
     }
 }

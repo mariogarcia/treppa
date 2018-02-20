@@ -1,8 +1,8 @@
 export default function tasks(state = {tasks: []}, action) {
     switch(action.type) {
-      case 'CREATE_TASK':
+      case 'CREATE_TASK_SUCCEEDED':
         return {
-            tasks: state.tasks.concat(action.payload)
+            tasks: state.tasks.concat(action.payload.task)
         }
 
       case 'EDIT_TASK':
