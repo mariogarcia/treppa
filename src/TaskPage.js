@@ -53,8 +53,6 @@ class TaskPage extends Component {
     renderTaskLists() {
         const { tasks } = this.props;
 
-        console.log(tasks);
-
         return TASK_STATUSES.map(status => {
             const statusTasks = tasks.filter(task => task.status === status);
 
@@ -69,6 +67,14 @@ class TaskPage extends Component {
     }
 
     render() {
+        if (this.props.isLoading) {
+            return (
+                <div className="tasks-loading">
+                    Loading...
+                </div>
+            )
+        }
+
         return (
             <div className="task-list">
                 <div className="task-list-header">

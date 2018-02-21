@@ -1,37 +1,35 @@
 export default function tasks(state = {tasks: []}, action) {
     switch(action.type) {
+      case 'EDIT_TASKS_SUCCEEDED':
+        return {
+            isLoading: false,
+            tasks: action.payload.tasks
+        };
+
       case 'CREATE_TASK_SUCCEEDED':
         return {
+            isLoading: false,
             tasks: state.tasks.concat(action.payload.task)
         }
 
-      case 'EDIT_TASK':
-        const { payload } = action;
-        const tasks = state.tasks.map(task => {
-            if (task.id === payload.id) {
-                return {
-                    ...task,
-                    ...payload.params
-                }
-            } else {
-                return task;
-            }
-        });
-
+      case 'FETCH_TASKS_REQUEST':
         return {
-            tasks: tasks
+            isLoading: true,
+            tasks: []
         }
 
       case 'FETCH_TASKS_SUCCEEDED':
         return {
+            isLoading: false,
             tasks: action.payload.tasks
         };
 
-      case 'EDIT_TASKS_SUCCEEDED':
+      case 'FETCH_TASKS_FAILED':
         return {
-            tasks: action.payload.tasks
+            isLoading: false,
+            error: action.payload.error,
+            tasks: []
         };
-
       default:
         return state
     }

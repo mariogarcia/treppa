@@ -17,11 +17,25 @@ export const createTaskSucceeded = (task) => {
     }
 }
 
+export const fetchTasksRequest = () => {
+    return {
+        type: 'FETCH_TASKS_REQUEST'
+    }
+}
+
 export function fetchTasks() {
     return (dispatch) => {
-        api.fetchTasks().then(resp => {
-            dispatch(fetchTaskSucceeded(resp.data))
-        })
+        dispatch(fetchTasksRequest())
+
+        api
+            .fetchTasks()
+            .then(resp => {
+                setTimeout(() => {
+                    dispatch(fetchTaskSucceeded(resp.data))
+                }, 2000)
+            }).catch(error => {
+                dispatch(fetchTasksFailed(error.message))
+            })
     }
 }
 
@@ -30,6 +44,15 @@ export function fetchTaskSucceeded(tasks) {
         type: 'FETCH_TASKS_SUCCEEDED',
         payload: {
             tasks
+        }
+    }
+}
+
+export function fetchTasksFailed(error) {
+    return {
+        type : 'FETCH_TASKS_FAILED',
+        payload: {
+            error
         }
     }
 }
