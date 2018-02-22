@@ -1,83 +1,65 @@
 import * as api from '../api'
+import { CALL_API } from '../middleware/api'
+
+export const FETCH_TASKS_REQUEST = 'FETCH_TASKS_REQUEST'
+export const FETCH_TASKS_SUCCEEDED = 'FETCH_TASKS_SUCCEEDED'
+export const FETCH_TASKS_FAILED = 'FETCH_TASKS_FAILED'
+
+export const CREATE_TASKS_REQUEST = 'CREATE_TASKS_REQUEST'
+export const CREATE_TASKS_SUCCEEDED = 'CREATE_TASKS_SUCCEEDED'
+export const CREATE_TASKS_FAILED = 'CREATE_TASKS_FAILED'
+
+export const EDIT_TASKS_REQUEST = 'EDIT_TASKS_REQUEST'
+export const EDIT_TASKS_SUCCEEDED = 'EDIT_TASKS_SUCCEEDED'
+export const EDIT_TASKS_FAILED = 'EDIT_TASKS_FAILED'
 
 export const createTask = ({title, description, status = 'Unstarted'}) => {
-    return (dispatch) => {
-        api.createTask({title, description, status}).then(resp => {
-            dispatch(createTaskSucceeded(resp.data))
-        })
-    }
-}
-
-export const createTaskSucceeded = (task) => {
     return {
-        type: 'CREATE_TASK_SUCCEEDED',
-        payload: {
-            task
-        },
-        meta: {
-            analytics: {
-                data: {
-                    id: task.id
-                },
-                event: 'create_task'
+        [CALL_API]: {
+            types: [
+                CREATE_TASKS_REQUEST,
+                CREATE_TASKS_SUCCEEDED,
+                CREATE_TASKS_FAILED
+            ],
+            endpoint: '/task',
+            method: 'POST',
+            body: {
+                title,
+                description,
+                status
             }
         }
     }
 }
 
-export const fetchTasksRequest = () => {
+export const fetchTasks = () => {
     return {
-        type: 'FETCH_TASKS_REQUEST'
-    }
-}
-
-export function fetchTasks() {
-    return (dispatch) => {
-        dispatch(fetchTasksRequest())
-
-        api
-            .fetchTasks()
-            .then(resp => {
-                setTimeout(() => {
-                    dispatch(fetchTaskSucceeded(resp.data))
-                }, 2000)
-            }).catch(error => {
-                dispatch(fetchTasksFailed(error.message))
-            })
-    }
-}
-
-export function fetchTaskSucceeded(tasks) {
-    return {
-        type: 'FETCH_TASKS_SUCCEEDED',
-        payload: {
-            tasks
-        }
-    }
-}
-
-export function fetchTasksFailed(error) {
-    return {
-        type : 'FETCH_TASKS_FAILED',
-        payload: {
-            error
+        [CALL_API]: {
+            types: [
+                FETCH_TASKS_REQUEST,
+                FETCH_TASKS_SUCCEEDED,
+                FETCH_TASKS_FAILED
+            ],
+            endpoint: '/task',
+            method: 'GET'
         }
     }
 }
 
 export const editTask = (id, params = {}) => {
-    return (dispatch) => {
-        api.updateTask({id,...params}).then(resp => {
-            dispatch(editTaskSucceeded(resp.data))
-        })
-    }
-}
-
-export const editTaskSucceeded = (tasks) => {
     return {
-        type: 'EDIT_TASKS_SUCCEEDED',
-        payload: {
-            tasks
+        [CALL_API]: {
+            types: [
+                EDIT_TASKS_REQUEST,
+                EDIT_TASKS_SUCCEEDED,
+                EDIT_TASKS_FAILED
+            ],
+            endpoint: '/task',
+            method: 'PUT',
+            body: {
+                ...params,
+                id
+            }
         }
     }
 }

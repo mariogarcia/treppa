@@ -3,13 +3,13 @@ export default function tasks(state = {tasks: []}, action) {
       case 'EDIT_TASKS_SUCCEEDED':
         return {
             isLoading: false,
-            tasks: action.payload.tasks
+            tasks: action.payload
         };
 
-      case 'CREATE_TASK_SUCCEEDED':
+      case 'CREATE_TASKS_SUCCEEDED':
         return {
             isLoading: false,
-            tasks: state.tasks.concat(action.payload.task)
+            tasks: state.tasks.concat(action.payload)
         }
 
       case 'FETCH_TASKS_REQUEST':
@@ -21,13 +21,13 @@ export default function tasks(state = {tasks: []}, action) {
       case 'FETCH_TASKS_SUCCEEDED':
         return {
             isLoading: false,
-            tasks: action.payload.tasks
+            tasks: action.payload
         };
 
       case 'FETCH_TASKS_FAILED':
         return {
             isLoading: false,
-            error: action.payload.error,
+            error: action.error,
             tasks: []
         };
       default:
