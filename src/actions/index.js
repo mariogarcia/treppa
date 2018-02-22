@@ -13,6 +13,14 @@ export const createTaskSucceeded = (task) => {
         type: 'CREATE_TASK_SUCCEEDED',
         payload: {
             task
+        },
+        meta: {
+            analytics: {
+                data: {
+                    id: task.id
+                },
+                event: 'create_task'
+            }
         }
     }
 }
