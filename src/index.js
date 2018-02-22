@@ -7,10 +7,11 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import tasks from './reducers'
+import logger from './middleware/logger'
 
 const store = createStore(
     tasks,
-    applyMiddleware(thunk)
+    applyMiddleware(thunk, logger)
 );
 
 ReactDOM.render(
